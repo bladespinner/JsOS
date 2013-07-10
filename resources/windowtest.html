@@ -1,0 +1,25 @@
+<html>
+	<head>
+		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="window.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+		<link rel="stylesheet" type="text/css" href="defWindowStyle.css">
+	</head>
+	<body onload="init()">
+		<div id="desktop">
+		</div>
+		<script>
+			function init(){
+				var win = CreateWindow({
+					width:500,
+					height:300,
+					posx:200,
+					posy:200,
+					resizable:true,
+					title:"This is a test window"});
+				AddWindow(win);
+			}
+		</script>
+	</body>
+</html>

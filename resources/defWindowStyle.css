@@ -1,0 +1,102 @@
+html,body
+{
+	height:100%;
+	margin:0;
+	overflow:hidden;
+}
+
+.window
+{
+	position:absolute;
+	margin:0;
+	background-color:#DDDDFF;
+	border:solid 1px #999999;
+	border-radius:5px;
+}
+.window .bar
+{
+	background-color:#99AAFF;
+	border-bottom:solid 1px #999999;
+	width:100%;
+	height:32px;
+}
+.window .content
+{
+	width:100%;
+	top:32px;
+	bottom:0px;
+}
+.window .bar .arrowLeft
+{
+	background:url(leftarrow.png);
+	width:32px;
+	height:32px;
+	top:9px;
+	left:9px;
+}
+.window .bar .arrowRight
+{
+	background:url(rightarrow.png);
+	width:32px;
+	height:32px;
+	top:9px;
+	left:59px;
+}
+.window .bar .btns
+{
+	position:absolute;
+	width:50%;
+	height:100%;
+	left:50%;
+}
+.window .bar .btns img
+{
+	width:30px;
+	height:30px;
+	margin-top:1px;
+	margin-right:1px;
+	float:right;
+}
+.window .bar .info
+{
+	font-size:135%;
+	font-style:italic;
+	position:absolute;
+	width:50%;
+	height:100%;
+	left:0;
+	overflow:hidden;
+}
+.window .bar .info .title
+{
+	position:absolute;
+	height:30px;
+	left:32px;
+	margin-top:1px;
+ 	white-space:nowrap;
+}
+.window .bar .info img
+{
+	position:absolute;
+	width:30px;
+	height:30px;
+	left:1px;
+	margin-top:1px;
+}
+#desktop
+{
+	position: absolute;
+	left:0;
+	top:0;
+	width:100%;
+	height:100%;
+	margin:0;
+	overflow:hidden;
+	background-color:red;
+}
+.icon
+{
+	width: 32px;
+	height: 32px;
+	position: absolute;
+}
