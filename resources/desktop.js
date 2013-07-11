@@ -1,5 +1,18 @@
-
 var iconArr;
+var Processes;
+
+function ToggleFullScreen()
+{
+	if($.fullscreen.isFullScreen())
+	{
+		$.fullscreen.exit();
+	}
+	else
+	{
+		$("#desktop").fullscreen();
+	}
+
+}
 function InitializeClock()
 {
 	setInterval(function(){
@@ -16,29 +29,51 @@ function InitializeStartMenu()
 	$("#startMenu").css("bottom",$(window).height()-offset.top-$("#startBtn").height()/2);
 	var hovercount = 0;
 	var hovfun = function(){
+		console.log(hovercount);
 		hovercount++;
 		$("#startMenu").show();
 	};
 	var nohovfun = function(){
+		console.log(hovercount);
 		hovercount--;
-		if(hovercount == 0)$("#startMenu").hide();
+		if(hovercount <= 0)
+		{
+			hovercount=0;
+			$("#startMenu").hide();
+		}
 	};
 	$("#startBtn").mouseenter(hovfun);
 	$("#startMenu").mouseenter(hovfun);
 	$("#startBtn").mouseout(nohovfun);
 	$("#startMenu").mouseout(nohovfun);
+	$("#startMenu button").mouseenter(hovfun);
+	$("#startMenu button").mouseout(nohovfun);
+
+	//Adding logic to elements in it:
+
+	$("#fullscrnBtn").click(ToggleFullScreen);
 
 }
-function CreateTaskbar()
+function InitializeProcessObject()
 {
-	var taskbar = document.createElement("div");
-	var startbtn = document.createElement("div");
-	taskbar.StartBtn = startbtn;
+	Processes = new Object();
+	Processes.nextId = 10;  //first 10 ids are reserved in case we add system processes
+	Processes.GenId = function(){
+		var result = Processes.nextId;
+		Processes.nextId++;
+		return result;
+	};
 }
+function InitializeTaskbarIcons()
+{
+	//$("#iconHolder").horizontalScroll();
+}
+
 function LoadSettings()
 {
 	InitializeClock();
 	InitializeStartMenu();
+	InitializeProcessObject();
 	var defaultSettings = new Object();
 	defaultSettings.background = "#A7BACC"
 	defaultSettings.iconData = new Object();
@@ -84,7 +119,36 @@ function CreateDesktopIcon(posx,posy,effect)
 
 	return icon;
 }
-function AttachEvents()
+
+
+
+function CreateTaskbarIcon()
 {
 
+}
+function CreateProcess(_window,name)
+{
+	var id = Processes.GenId();
+	var process = new Object();
+	process.id = id;
+	process.name = name;
+	process.window = _window;
+	var icon = document.createElement("li");
+	var iconImg = document.createElement("img");
+	$(iconImg).attr("src",_window.icon);
+	$(icon).append(iconImg);
+	process.taskbarIcon = icon;
+
+	$(_window.bar.buttonHolder.closeBtn).click(function(){
+		$(icon).remove();
+	});
+	var focusWindow = function()
+	{
+		Focus(_window,"override");
+	};
+	$(icon).click(focusWindow);
+	$(iconImg).click(focusWindow);
+
+	$("#iconHolder").append(icon);
+	AddWindow(_window);
 }

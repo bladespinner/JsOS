@@ -3,6 +3,7 @@ html,body
 	height:100%;
 	margin:0;
 	overflow:hidden;
+	font-family:"Times New Roman",Georgia,Serif;
 }
 
 .window
@@ -181,10 +182,12 @@ html,body
 }
 #startMenu
 {
+	padding-top: 10px;
+	padding-bottom: 40px;
 	position: fixed;
 	z-index: 1500;
 	width: 200px;
-	height: 500px;
+	min-height: 400px;
 	float:left;
 	background-color: rgb(140,190,205);
 	overflow: hidden;
@@ -195,4 +198,53 @@ html,body
 	border-bottom-right-radius:150px;
 	border-top-left-radius:80px;
 	box-shadow: 0px 0px 15px rgba(0,0,100,0.7);
+	-webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+#startMenu button
+{
+	font-family:"Impact",Georgia,Serif;
+	position: relative;
+	width: 70%;
+	left:25%;
+	background-color: white;
+	border-radius: 15px;
+}
+#startMenu button:hover
+{
+	background-color: #F0F0FF;
+}
+#iconHolder
+{
+	overflow-y: scroll;
+	height: 100%;
+	position: absolute;
+	left:70px;
+	list-style-type: none;
+	right: 170px;
+}
+#iconHolder li
+{
+	position: relative;
+	margin-top:-1em;
+	display: block;
+	background-color: rgba(200,230,225,0.8);
+	width: 46px;
+	height: 46px;
+	box-shadow: 0px 0px 15px rgba(0,0,100,0.7);
+	margin-left: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius:5px;
+	float:left;
+}
+#iconHolder li:hover
+{
+	box-shadow: 0px 0px 25px rgba(255,255,100,0.7);
+}
+.taskBarIcon
+{
+	left:5px;
+	top:1px;
+	position: relative;
+	width: 46px;
+	height: 46px;
 }

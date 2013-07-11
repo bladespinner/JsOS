@@ -207,16 +207,14 @@ function CreateWindow(dataExt)
 	$(bar).click(Focus);
 	$(content).click(Focus);
 	_window.content = content;
+	_window.icon = data.iconUrl;
 	return _window;
 }
 
-/*
-function DirectoryWindow(width , height , posx , posy ,movable, resizable)
+
+function DirectoryWindow(_window,path)
 {
-	var window = Window(width, height , posx, posy , movable , resizable);
-	var leftArrow = document.createElement("div");
-	var rightArrow = document.createElement("div");
-	
-	$(leftArrow)addClass("arrowLeft");
-	$(rightArrow)addClass("arrowRight");
-}*/
+	if(!path)path="Disk/";
+	var content = _window.content;
+	return window;
+}
