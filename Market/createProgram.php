@@ -23,7 +23,7 @@ include_once './upload_file.php'
 					<input type="file" name="file0" id="file"> </br></br>
 					<?php if(isset($validFiles) && !$validFiles) echo "<br/> <h5>You have to upload at least one valid file. </h5> </br>";
 					?>
-					<a href=""> Upload more </a> <br/><br/>
+					<a id="uploader" href=""> Upload more </a> <br/><br/>
 
 					<input type="submit" name="submit" value="Submit">
 					<?php   if( isset($okStatus) && $okStatus) 
