@@ -2,12 +2,20 @@ var baseAPIUrl = "http://localhost:8088/JsOS/restAPI/"
 
 function getRoot()
 {
-	return "Disk\\";
+	return "Disk";
 }
 
 function getDirectories(directory,result)
 {
-	if(directory == "")return getRoot();
+	if(directory == "")
+	{
+		var res=new Object();
+		res["folders"]=new Array();
+		res["folders"][0] = getRoot();
+		res["files"]=new Array();
+		result(res);
+		return;
+	}
 	var datum = {json: {dir:directory}};
 	$.ajax({
 	  url: baseAPIUrl+"/directory.php",
@@ -15,7 +23,7 @@ function getDirectories(directory,result)
 	  data : datum,
 	  success : function(data)
 	  {
-	  	result(data);
+	  	result(JSON.parse(data));
 	  },
 	});
 }
@@ -28,7 +36,7 @@ function createDirectory(directory,result)
 	  data : datum,
 	  success : function(data)
 	  {
-	  	result(data);
+	  	result(JSON.parse(data));
 	  },
 	});
 }
@@ -41,7 +49,7 @@ function copyDirectory(directory,copyDirectory,result)
 	  data : datum,
 	  success : function(data)
 	  {
-	  	result(data);
+	  	result(JSON.parse(data));
 	  },
 	});
 }
@@ -54,7 +62,7 @@ function renameDirectory(directory,name,result)
 	  data : datum,
 	  success : function(data)
 	  {
-	  	result(data);
+	  	result(JSON.parse(data));
 	  },
 	});
 }
@@ -67,7 +75,7 @@ function deleteDirectory(directory,result)
 	  data : datum,
 	  success : function(data)
 	  {
-	  	result(data);
+	  	result(JSON.parse(data));
 	  },
 	});
 }

@@ -203,6 +203,8 @@ function CreateWindow(dataExt)
 	bar.focusTarget = _window;
 	content.focusTarget = _window
 
+	$(_window).append(content);
+
 	$(_window).click(Focus);
 	$(bar).click(Focus);
 	$(content).click(Focus);
@@ -210,11 +212,150 @@ function CreateWindow(dataExt)
 	_window.icon = data.iconUrl;
 	return _window;
 }
-
-
-function DirectoryWindow(_window,path)
+function GetExtentionImageUrl(extention)
 {
-	if(!path)path="Disk/";
+	return "resources/file.png"
+}
+function GetFileExtention(file)
+{
+
+}
+/*function GetDataFillWithContext(_window,dirList,path)
+{
+	return function(data){
+		//$(dirList).html("");
+		for(var i=0;i<data["folders"].length;i++)
+		{
+			var listElement = document.createElement("li");
+			var imageUrl = "resources/folder.png";
+			var img = document.createElement("img");
+			$(img).attr("src",imageUrl);
+			$(listElement).append(img);
+			$(listElement).click(function()
+			{
+				getDirectories(path+"\\"+data["folders"][i],GetDataFillWithContext(_window,dirList,path+"\\"+data["folders"][i]));
+			});
+			$(listElement).html($(listElement).html()+data["folders"][i]);
+			$(dirList).append(listElement);
+		}
+		for(var i=0;i<data["files"].length;i++)
+		{
+			var listElement = document.createElement("li");
+			var extention = GetFileExtention(data["files"][i]);
+			var imageUrl = GetExtentionImageUrl(extention);
+			var img = document.createElement("img");
+			$(img).attr("src",imageUrl);
+			$(listElement).append(img);
+			$(listElement).html($(listElement).html()+data["files"][i]);
+			$(dirList).append(listElement);
+		}
+	};
+}*/
+function DrawFSResult(_window,path,noHistory)
+{
+	return function(data)
+	{
+		$(_window.dirList).html("");
+		$(_window.pathbar).attr("value",path);
+
+		if(!noHistory)
+		{
+			//$(_window.pathbar).attr("value",path);
+			_window.curPath = path;
+			var newPathPath = new Object();
+			newPathPath.cur = path;
+			newPathPath.last = _window.backBtn.pathPath;
+			_window.backBtn.pathPath = newPathPath;
+		}
+		else
+		{
+			var a=0;
+			a++;
+		}
+
+		for(var i=0;i<data["folders"].length;i++)
+		{
+			var listElement = document.createElement("li");
+			var imageUrl = "resources/folder.png";
+			var img = document.createElement("img");
+			$(img).attr("src",imageUrl);
+			$(listElement).append(img);
+			var fName = data["folders"][i];
+			listElement.path = path+"\\"+fName;
+
+			//listElement._window = _window;
+			$(listElement).click(function()
+			{
+				getDirectories(this.path,DrawFSResult(_window,this.path,false));
+			});
+			$(listElement).html($(listElement).html()+fName);
+			$(_window.dirList).append(listElement);
+		}
+		for(var i=0;i<data["files"].length;i++)
+		{
+			var listElement = document.createElement("li");
+			var extention = GetFileExtention(data["files"][i]);
+			var imageUrl = GetExtentionImageUrl(extention);
+			var img = document.createElement("img");
+			$(img).attr("src",imageUrl);
+			$(listElement).append(img);
+			$(listElement).html($(listElement).html()+data["files"][i]);
+			$(_window.dirList).append(listElement);
+		}
+	};
+}
+function DirectoryWindow(data,path)
+{
+	data.iconUrl="resources/folder.png";
+	data.title = "File System"
+
+	var dirList = document.createElement("ul");
+	var pathbar = document.createElement("input");
+	var dirToolBar = document.createElement("div");
+	var backBtn = document.createElement("img");
+	var addBtn = document.createElement("img");
+
+	var _window = CreateWindow(data);
+	if(!path)path="";
+	
+	$(dirList).addClass("fileList");
+	$(dirToolBar).addClass("dirTool");
+	$(backBtn).addClass("backArrow")
+	$(pathbar).addClass("curdirBar");
+
+	$(backBtn).attr("src","resources/leftarrow.png");
+	backBtn.pathPath=new Object();
+	backBtn.pathPath.cur = path;
+	//backBtn._window = _window;
+	_window.backBtn = backBtn;
+	$(backBtn).click(function(){
+		if(_window.curPath == this.pathPath.cur)
+		{
+			this.pathPath = this.pathPath.last;
+		}
+		if(this.pathPath === undefined)
+		{
+			this.pathPath = new Object();
+			this.pathPath.cur = "";
+		}
+		var tmpPath = this.pathPath.cur;
+		this.pathPath=this.pathPath.last;
+		getDirectories(tmpPath,DrawFSResult(_window,tmpPath,true));
+	});
+	$(dirToolBar).append(backBtn);
+
+	$(pathbar).attr("type","text");
+	
+	$(pathbar).attr("value",path);
 	var content = _window.content;
-	return window;
+	_window.curPath = path;
+	_window.dirList = dirList;
+	_window.pathbar = pathbar;
+	$(content).append(pathbar);
+	$(content).append(dirToolBar);
+	$(content).append(dirList);
+	var drawFunction = DrawFSResult(_window,path);
+	getDirectories(path,drawFunction);
+	//getDirectories(path,GetDataFillWithContext(_window,dirList,path));
+	return _window;
 }

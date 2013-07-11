@@ -1,20 +1,19 @@
 <?php
-
-
-
-
-
-
-
+	include_once "helpers/membership.php";
+	session_start();
+	if(!isLoggedIn())
+	{
+		http_response_code(403);
+		header( 'Location: http://localhost:8088/JsOS/login.php' ) ;
+	}
 ?>
 <html>
 	<head>
-		
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 		<script src="resources/jquery.horizontal.scroll.js"></script>
 		<script src="resources/jquery.fullscreen-0.3.5.min.js"></script>
+		<script src="resources/api.js"></script>
 		<script src="resources/window.js"></script>
-		<script src="resources/desktop.js"></script>
 		<script src="resources/desktop.js"></script>
 		<link rel="stylesheet" type="text/css" href="resources/defWindowStyle.css">
 		<link rel="stylesheet" type="text/css" href="resources/jquery.horizontal.scroll.css">
@@ -62,15 +61,15 @@
 					posy:300,
 					resizable:true,
 					title:"This is a test window"});
-				CreateProcess(win,"haha");
-				var win1 = CreateWindow({
+				CreateProcess(win,"asdf");
+				
+				var win1 = DirectoryWindow({
 					width:500,
 					height:300,
 					posx:200,
 					posy:200,
 					resizable:true,
-					title:"This is a test window"});
-				win = DirectoryWindow(win1);
+					title:"File System"},"");
 				CreateProcess(win1,"omg");
 			}
 		</script>

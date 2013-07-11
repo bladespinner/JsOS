@@ -2,7 +2,7 @@
 	include_once 'restHelp.php';
 	
 	session_start();
-
+	/*
 	function createDirectory($dir,$copyDir)
 	{
 		if(hasAccess($dir))
@@ -71,7 +71,7 @@
 			else return 1;
 		}
 		return -1;
-	}
+	}*/
 
 	//header('Content-type: application/json');
 	$result = "";

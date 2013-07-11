@@ -14,6 +14,7 @@ html,body
 	border:solid 1px #999999;
 	border-radius:5px;
 	box-shadow: 3px 3px 10px rgba(0,0,100,0.7);
+	overflow: hidden;
 }
 .window .bar
 {
@@ -27,6 +28,59 @@ html,body
 	width:100%;
 	top:32px;
 	bottom:0px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.window .content .curdirBar
+{
+	height:25px;
+	width:98%;
+	margin-left: 1%;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	margin-right: 1%;
+}
+.window .content .dirTool
+{
+	height:25px;
+	width: 100%;
+	background-color: #99AAFF;
+	border-bottom:solid 1px #999999;
+	border-top:solid 1px #999999;
+}
+.window .content .dirTool .backArrow
+{
+	position: relative;
+	left:2px;
+	width:23px;
+	height:23px;
+	top:1px;
+}
+.window .content .dirTool .addDir
+{
+	position: relative;
+	left:2px;
+	width:23px;
+	height:23px;
+	top:1px;
+}
+.window .content .fileList
+{
+	position: relative;
+	list-style-type: none;
+	width: 100%;
+	height: calc(100% - 100px);
+}
+.window .content .fileList li
+{
+	width: 100%;
+	height: 35px;
+	margin-top:-1em;
+}
+.window .content .fileList li img
+{
+	width: 1em;
+	height: 1em;
 }
 .window .bar .arrowLeft
 {
@@ -242,8 +296,6 @@ html,body
 }
 .taskBarIcon
 {
-	left:5px;
-	top:1px;
 	position: relative;
 	width: 46px;
 	height: 46px;

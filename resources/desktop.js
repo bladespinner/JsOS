@@ -57,7 +57,7 @@ function InitializeStartMenu()
 function InitializeProcessObject()
 {
 	Processes = new Object();
-	Processes.nextId = 10;  //first 10 ids are reserved in case we add system processes
+	Processes.nextId = 10;  //first 10 ids are reserved for system processes
 	Processes.GenId = function(){
 		var result = Processes.nextId;
 		Processes.nextId++;
@@ -121,25 +121,28 @@ function CreateDesktopIcon(posx,posy,effect)
 }
 
 
-
-function CreateTaskbarIcon()
-{
-
-}
-function CreateProcess(_window,name)
+function CreateProcess(_window,name,background)//background - Possible extention point
 {
 	var id = Processes.GenId();
+	var icon = document.createElement("li");
+	var iconImg = document.createElement("img");
+
+	$(iconImg).attr("src",_window.icon);
+	$(iconImg).addClass("taskBarIcon");
+	$(icon).append(iconImg);
+
 	var process = new Object();
 	process.id = id;
 	process.name = name;
 	process.window = _window;
-	var icon = document.createElement("li");
-	var iconImg = document.createElement("img");
-	$(iconImg).attr("src",_window.icon);
-	$(icon).append(iconImg);
 	process.taskbarIcon = icon;
 
+	_window.taskbarIcon = icon;
+
+	Processes[id] = process;
+
 	$(_window.bar.buttonHolder.closeBtn).click(function(){
+		delete Processes[id];
 		$(icon).remove();
 	});
 	var focusWindow = function()
@@ -148,6 +151,7 @@ function CreateProcess(_window,name)
 	};
 	$(icon).click(focusWindow);
 	$(iconImg).click(focusWindow);
+
 
 	$("#iconHolder").append(icon);
 	AddWindow(_window);

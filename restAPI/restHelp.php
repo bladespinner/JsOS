@@ -95,7 +95,8 @@
 
 	$_PUT = array();
 	$_DELETE = array();
-	session_start();
+	
+	/*session_start();*/
 
 	function createDirectory($dir,$copyDir)
 	{
@@ -145,7 +146,7 @@
 			$result['files'] = array();
 			foreach($contents as $item)
 			{
-				if(is_dir($item))
+				if(is_dir($dir."\\".$item))
 				{
 					if($item==='.' || $item==='..')continue;
 					$result['folders'][] = $item;
