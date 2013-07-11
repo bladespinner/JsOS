@@ -13,11 +13,11 @@ include_once './dirContent.php'
 				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
 					<?php
 
-						$result=getDirectoryContents("./programs/");
+						$result=getDirectoryContents("./programs");
 						$i=0;
 						while(isset($result['folders'][$i]))
 						{
-							echo $result['floders'][$i];
+							echo "<h3>". $result['folders'][$i]. "<br/></h3>";
 							$i++;
 						}
 					?>
