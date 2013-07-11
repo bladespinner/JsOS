@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
   }
   function dirExists($dir)
   {
-    return file_exists($dir) &&  is_dir($dir);
+    return is_dir($dir);
   }
 
   function isThereaValidFile()

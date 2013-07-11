@@ -11,7 +11,7 @@ include_once './upload_file.php'
 		<div class="paper">
 		
 			<div class="content">
-				<h1> Admin Panel </h1>
+				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
 					<label>Insert program name:</label>
 					<form  method="post" enctype="multipart/form-data">
 					<input type="text" name="programName"></input>
