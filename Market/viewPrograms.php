@@ -10,16 +10,23 @@ include_once './dirContent.php'
 		<div class="paper">
 		
 			<div class="content">
-				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
+				<h1><a href="adminPanel.php"> Admin Panel </a></h1>
 					<?php
 
 						$result=getDirectoryContents("./programs");
 						$i=0;
 						while(isset($result['folders'][$i]))
 						{
-							echo "<h3>". $result['folders'][$i]. "<br/></h3>";
+							echo "<h3>Program: ". $result['folders'][$i]. "<br/></h3>";
+							echo '<form method="post" action="viewProgram.php">';
+							echo '<input type="hidden" name="fileName" value="'.$result['folders'][$i].'" ></input>';
+							echo '<input type="submit" value="Change" ></input>';
+							echo '</form>';
 							$i++;
 						}
+
+
+							
 					?>
 			</div>
 			
