@@ -1,3 +1,5 @@
+var focusedWindow = undefined;
+
 function WindowDrag()
 {
 
@@ -40,11 +42,12 @@ function CreateMaximBtn(holder,_window,data)
 			_window.unMax.left = $(_window).css("left");
 			_window.unMax.top = $(_window).css("top");
 
-			$(_window).width($("#desktop").width());
-			$(_window).height($("#desktop").height());
-			$(_window).css("left",0);
-			$(_window).css("top",0);
+			$(_window).width($("#desktop").width()-10);
+			$(_window).height($("#desktop").height() - $("#toolbar").height() - 20);
+			$(_window).css("left",5);
+			$(_window).css("top",5);
 			_window.maximized = true;
+			_window.toggleDrag();
 		}
 		else
 		{
@@ -53,6 +56,7 @@ function CreateMaximBtn(holder,_window,data)
 			$(_window).css("left",_window.unMax.left);
 			$(_window).css("top",_window.unMax.top);
 			_window.maximized = false;
+			_window.toggleDrag();
 		}
 	});
 	$(holder).append(maxBtn);
@@ -91,6 +95,23 @@ function CreateBar(_window,data)
 	_window.bar = bar;
 	return bar;
 }
+function Focus(target,override)
+{
+	if(override == "override");
+	else target = this;
+	if(!focusedWindow)
+	{
+		$(target.focusTarget).css("z-index","500");
+		focusedWindow=target.focusTarget;
+	}
+	else
+	{
+		$(focusedWindow).css("z-index","2");
+		$(target.focusTarget).css("z-index","500");
+		focusedWindow=target.focusTarget;
+	}
+};
+
 function CreateWindow(dataExt)
 {
 	var data = {//default data
@@ -110,10 +131,10 @@ function CreateWindow(dataExt)
 		maximisable:"true",
 		closable:"true",
 		title:"Window",
-		iconUrl:"file.png",
-		closeBtnUrl:"close_button.png",
-		minBtnUrl:"minimize_button.png",
-		maxBtnUrl:"maximize_button.png",
+		iconUrl:"resources/file.png",
+		closeBtnUrl:"resources/close_button.png",
+		minBtnUrl:"resources/minimize_button.png",
+		maxBtnUrl:"resources/maximize_button.png",
 		barTitleClass:"title",
 		barButtonHolderClass:"btns",
 		barInfoHolderClass:"info"
@@ -134,18 +155,57 @@ function CreateWindow(dataExt)
 
 	$(content).addClass(data.contentClass);
 	
-	$(_window).draggable({
-		containment:data.windowContainer,
-		handle:bar
+	if(data.movable)
+	{
+
+		$(_window).draggable({
+			containment:data.windowContainer,
+			handle:bar,
+			drag:function()
+			{
+				Focus(this,"override");
+			}
 		});
-	if(data.resizable)$(_window).resizable({
-		minWidth:data.minWidth,
-		minHeight:data.minHeight,
-		containment:"parent",
-		resize:function(event,ui){
-			_window.maximized = false;
+
+		_window.canDrag = true;
+
+		_window.toggleDrag = function()
+		{
+			if(_window.canDrag)
+			{
+				$(_window).draggable("disable");
+				$(_window).removeClass("ui-state-disabled");
+			}
+			else $(_window).draggable("enable");
+			_window.canDrag = !_window.canDrag;
 		}
-		});
+	}
+	else _window.canDrag = false;
+
+
+	if(data.resizable)
+	{
+		if(data.resizable)$(_window).resizable({
+			minWidth:data.minWidth,
+			minHeight:data.minHeight,
+			containment:"parent",
+			resize:function(event,ui){
+				_window.maximized = false;
+				if(!_window.canDrag)
+				{
+					_window.toggleDrag();
+				}
+			}
+			});
+	}
+	$(_window).css("z-index","2");
+	_window.focusTarget = _window;
+	bar.focusTarget = _window;
+	content.focusTarget = _window
+
+	$(_window).click(Focus);
+	$(bar).click(Focus);
+	$(content).click(Focus);
 	_window.content = content;
 	return _window;
 }

@@ -1,7 +1,44 @@
 
 var iconArr;
+function InitializeClock()
+{
+	setInterval(function(){
+		var d = new Date();
+		$("#datetime").text(d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+" | "+d.getUTCDay()+"."+d.getUTCMonth()+"."+d.getUTCFullYear());
+	}
+	,1000);
+}
+function InitializeStartMenu()
+{
+	$("#startMenu").hide();	
+	var offset = $("#startBtn").offset();
+	$("#startMenu").css("left",offset.left+$("#startBtn").width()/2);
+	$("#startMenu").css("bottom",$(window).height()-offset.top-$("#startBtn").height()/2);
+	var hovercount = 0;
+	var hovfun = function(){
+		hovercount++;
+		$("#startMenu").show();
+	};
+	var nohovfun = function(){
+		hovercount--;
+		if(hovercount == 0)$("#startMenu").hide();
+	};
+	$("#startBtn").mouseenter(hovfun);
+	$("#startMenu").mouseenter(hovfun);
+	$("#startBtn").mouseout(nohovfun);
+	$("#startMenu").mouseout(nohovfun);
+
+}
+function CreateTaskbar()
+{
+	var taskbar = document.createElement("div");
+	var startbtn = document.createElement("div");
+	taskbar.StartBtn = startbtn;
+}
 function LoadSettings()
 {
+	InitializeClock();
+	InitializeStartMenu();
 	var defaultSettings = new Object();
 	defaultSettings.background = "#A7BACC"
 	defaultSettings.iconData = new Object();
