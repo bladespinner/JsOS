@@ -10,7 +10,7 @@
 				<h1> Admin Panel </h1>
 				<h3><a href="createProgram.php">Create a new program</a></h3>
 				<br/>
-				<h3><a href="OS.html">View a list of programs already in use</a></h3>
+				<h3><a href="viewPrograms.php">View a list of programs already in use</a></h3>
 
 
 			</div>

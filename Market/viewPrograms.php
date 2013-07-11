@@ -1,3 +1,6 @@
+<?php
+include_once './dirContent.php'
+?>
 <html>
 	<head>
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
@@ -7,13 +10,17 @@
 		<div class="paper">
 		
 			<div class="content">
-				<h1> Admin Panel </h1>
+				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
+					<?php
 
-				    <form action="upload_file.php" method="post" enctype="multipart/form-data">
-					<label for="file"><h3>Filename:</h3></label>
-					<input type="file" name="file" id="file"><br/><br/>
-					<input type="submit" name="submit" value="Submit">
-					</form>	
+						$result=getDirectoryContents("./programs/");
+						$i=0;
+						while(isset($result['folders'][$i]))
+						{
+							echo $result['floders'][$i];
+							$i++;
+						}
+					?>
 			</div>
 			
 			<footer>

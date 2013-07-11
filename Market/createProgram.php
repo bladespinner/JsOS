@@ -11,7 +11,7 @@ include_once './upload_file.php'
 		<div class="paper">
 		
 			<div class="content">
-				<h1> Admin Panel </h1>
+				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
 					<label>Insert program name:</label>
 					<form  method="post" enctype="multipart/form-data">
 					<input type="text" name="programName"></input>
@@ -24,7 +24,11 @@ include_once './upload_file.php'
 					<?php if(isset($validFiles) && !$validFiles) echo "<br/> <h5>You have to upload at least one valid file. </h5> </br>";
 					?>
 					<a href=""> Upload more </a> <br/><br/>
+
 					<input type="submit" name="submit" value="Submit">
+					<?php   if( isset($okStatus) && $okStatus) 
+					 echo "<br/> <h3> Program created  successfull. </h3> </br>";
+					?>
 					</form>	
 			</div>
 			

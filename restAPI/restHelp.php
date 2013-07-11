@@ -92,8 +92,80 @@
 	}
 
 
+
 	$_PUT = array();
 	$_DELETE = array();
+	session_start();
+
+	function createDirectory($dir,$copyDir)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			if($copyDir!=="")
+			{
+				if(hasAccess($copyDir))
+				{
+					$copyDir = translatePath($copyDir);
+					if(copyRecursive($dir,$copyDir))return 0;//success
+					else return 1;//copy error
+				}
+				else return -1;//permission error
+			}
+			else
+			{
+				if(mkdir($dir))return 0;//success
+				else return 1;//create error
+			}
+		}
+		return -1;//permission error
+	}
+	function renameDirectory($dir,$newName)
+	{
+		if(hasAccess($dir))
+		{
+			if(hasAccess($newName))
+			{
+				$newName = translatePath($newName);
+				$dir = translatePath($dir);
+				if(rename($dir,$newName))return 0;
+				else return 1;
+			}
+		}
+		return -1;
+	}
+	function getDirectoryContents($dir)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			$contents = scandir($dir);
+			$result = array();
+			$result['folders'] = array();
+			$result['files'] = array();
+			foreach($contents as $item)
+			{
+				if(is_dir($item))
+				{
+					if($item==='.' || $item==='..')continue;
+					$result['folders'][] = $item;
+				}
+				else $result['files'][] = $item;
+			}
+			return $result;
+		}
+		return -1;
+	}
+	function removeDirectory($dir)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			if(deleteDirectory($dir))return 0;
+			else return 1;
+		}
+		return -1;
+	}
 
 	if($_SERVER['REQUEST_METHOD'] === 'PUT')
 	{
