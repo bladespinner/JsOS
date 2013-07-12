@@ -2,7 +2,7 @@
 include_once './dirContent.php'
 ?>
 <?php
-if($_SESSION['rank']!='admin')
+if(!isset($_SESSION['rank']) ||$_SESSION['rank']!='admin')
 {
 http_response_code(403);
 exit();

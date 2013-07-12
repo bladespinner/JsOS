@@ -1,5 +1,6 @@
 <aside>
 <?php
+	include_once  './config.php';
 	function joinPaths() {
      $args = func_get_args();
      $paths = array();
