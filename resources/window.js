@@ -468,7 +468,30 @@ function DirectoryWindow(data,path)
 function MarketWindow(data)
 {
 	data.iconUrl="resources/shoppingcart.png";
-	data.title = "Market"
+	data.title = "Market";
 	var _window = CreateWindow(data);
+	getMarketItem("",function(data){
+		for(var i=0;i<data.length;i++)
+		{
+			var mItem = document.createElement("div");
+			$(mItem).addClass("marketItem");
+			$(mItem).html(data[i]);
+			mItem.program = data[i];
+			$(mItem).click(function(){
+				var path = "Market/programs/"+this.program;
+				getMarketItem(this.program,function(data)
+				{
+					//execute in different scope
+					(function()
+					{
+						eval(data);
+					})();
+				});
+				StopProcess(_window.processId)
+			});
+			$(_window.content).append(mItem);
+		}
+	});
+	
 	return _window;
 }

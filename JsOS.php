@@ -21,9 +21,12 @@
 		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
 	</head>
 	<body onload="init()">
+		<input type="hidden" id="username" value='<?php echo $_SESSION['username']; ?>' ></input>
 		<div id="desktop">
 			<div id="startMenu">
 				<button id="fullscrnBtn" class="menubtn">Toggle Fullscreen</button>
+				<button id="marketBtn" class="menubtn">Market</button>
+				<button id="fileSysBtn" class="menubtn">File System</button>
 			</div>
 			<div id="toolbar">
 				<div id="startBtn">

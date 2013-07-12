@@ -31,6 +31,13 @@ html,body
 	overflow-y:scroll;
 	overflow-x:hidden;
 }
+.window .content .marketItem
+{
+	width: 100%;
+	height: 25px;
+	border-bottom:solid 1px #999999;
+	text-align: center;
+}
 .window .content .curdirBar
 {
 	height:25px;
