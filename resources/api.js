@@ -1,5 +1,7 @@
 var baseAPIUrl = "http://localhost:8088/JsOS/restAPI/"
 
+//DIRECTORY
+
 function getRoot()
 {
 	return "Disk";
@@ -80,6 +82,7 @@ function deleteDirectory(directory,result)
 	});
 }
 
+//MARKET
 
 function getMarketItem(id,result)
 {
@@ -95,10 +98,63 @@ function getMarketItem(id,result)
 	  },
 	});
 }
-function ExecuteJS(data)
+
+//FILE
+
+function uploadFile(filename,data,result,copyFrom)
 {
-	eval(data);
+	if(!copyFrom)copyFrom="";
+	var datum = {json: {path:filename,data:data,format:"",copyPath:copyFrom}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "POST",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  }
+	});
+	
+}
+function uploadBase64File(filename,data,result,copyFrom)
+{
+	if(!copyFrom)copyFrom="";
+	var datum = {json: {path:filename,data:data,format:"base64",copyPath:copyFrom}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "POST",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  }
+	});
+}
+function deleteFile(path,result)
+{
+	var datum = {json: {path:path}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "DELETE",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  },
+	});
+}
+function getFileBase64(path,result)
+{
+	var datum = {json: {path:path,format:"base64"}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "GET",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  },
+	});
 }
 
-
-
+//btoa() and atob()

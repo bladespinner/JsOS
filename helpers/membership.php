@@ -3,6 +3,7 @@
 	{
 		for($i = 0 ; $i < strlen($str);$i++)
 		{
+
 			$ch = $str[$i] ;
 			$isLowercaseLetter = ($ch >= 'a') && ($ch <= 'z') ;
 			$isUppercaseLetter = ($ch >= 'A') && ($ch <= 'Z') ;
@@ -10,7 +11,7 @@
 			$isSpecial = false;
 			if($allowSpecialSymbols)
 			{
-				$isSpecial = $ch == '@' || $ch == '!';
+				$isSpecial = ($ch == '@') || ($ch == '!');
 			}
 			if(!$isLowercaseLetter && !$isUppercaseLetter && !$isNumber && !$isSpecial)
 			{
@@ -35,7 +36,6 @@
 	}
 	function register($con,$username,$password)
 	{
-		echo $username;
 		$salt = generateRndSalt();
 		$password = hashPassword($password , $salt);
 		$username = mysql_real_escape_string($username);
@@ -75,15 +75,13 @@
 		$username = mysql_real_escape_string($username);
 		$sql = "SELECT * FROM `user` where `UserName` ='".$username."'";
 		$result = mysqli_query($con,$sql);
-		var_dump($result);
 		$row = mysqli_fetch_array($result);
 		if($row)
 		{
 			$hash = hashPassword($password,$row['Salt']);
-			$role=$row['Role'];
 			if($hash === $row['Hash'])
 			{
-				setLoggedIn($username,$role);
+				setLoggedIn($username);
 				return true;
 			}
 			else return false;
@@ -96,13 +94,14 @@
 		$sufficientPassLen = strlen($username)>=7;
 		$sufficientUsrNameLen = strlen($password)>=4;
 		$passwordsMatch = $password === $passwordRepeat;
-		return isAlphanumeric($username,false) &&
-			   isAlphanumeric($password,true) &&
-			   $sufficientPassLen &&
-			   $passwordsMatch &&
-			   $sufficientUsrNameLen;
+		$usernameIsAlphanumeric = isAlphanumeric($username,false) ;
+		var_dump($usernameIsAlphanumeric);
+		$passIsAlphanumeric = isAlphanumeric($password,true);
+		var_dump($passIsAlphanumeric);
+		$result = $usernameIsAlphanumeric && $passIsAlphanumeric && $sufficientPassLen &&$passwordsMatch &&$sufficientUsrNameLen;
+		return result;
 	}
-	function setLoggedIn($username,$role)
+	function setLoggedIn($username)
 	{
 		$_SESSION['username'] = $username;
 		$_SESSION['loggedIn'] = true;

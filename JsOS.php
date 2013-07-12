@@ -27,6 +27,9 @@
 				<button id="fullscrnBtn" class="menubtn">Toggle Fullscreen</button>
 				<button id="marketBtn" class="menubtn">Market</button>
 				<button id="fileSysBtn" class="menubtn">File System</button>
+				<a href="logout.php">
+					<button id="logoutBtn" class="menubtn">Logout</button>
+				</a>
 			</div>
 			<div id="toolbar">
 				<div id="startBtn">
