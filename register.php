@@ -33,6 +33,7 @@
 <html>
 	<head>
 		<script src="jquery-1.4.4.min.js"></script>
+		<script src="inputStyle.js"></script>
 		<link rel="stylesheet" type="text/css" href="test.css">
 	</head>
 	<body>
@@ -45,15 +46,15 @@
 				<div class="center">
 					<h1>Register</h1>
 					<form method="post">
-						<input type="text" id="username" name="username"></input>
+						<input type="text" id="username" name="username" value="Insert username" data-defaultValue="Insert username"></input>
 						<label>Username</label>
 						</br>
 						</br>
-						<input type="password" id="password" name="password"></input>
+						<input type="password" id="password" name="password" value="*******" data-defaultValue="*******"></input>
 						<label>Password</label>
 						</br>
 						</br>
-						<input type="password" id="passwordRepeat" name="passwordRepeat"></input>
+						<input type="password" id="passwordRepeat" name="passwordRepeat"  value="*******" data-defaultValue="*******"></input>
 						<label>Repeat Password</label>
 						</br>
 						<label id="passMissmatchLabel"></br>Passwords must match.</label>

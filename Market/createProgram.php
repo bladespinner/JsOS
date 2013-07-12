@@ -5,6 +5,7 @@ include_once './upload_file.php'
 	<head>
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
 		<script src="style.js"></script>
+		<script src="../inputStyle.js"></script>
 		<link rel="stylesheet" type="text/css" href="../test.css">
 	</head>
 	<body>
