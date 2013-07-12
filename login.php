@@ -11,9 +11,10 @@
 		$succesfulLogin = login($con,$_POST['username'],$_POST['password']);
 		if($succesfulLogin)
 		{
-			//header( 'Location: http://localhost:8088/JsOS/JsOS.html') ;
+		  header( 'Location: http://'.$_SERVER['HTTP_HOST']._APPROOT.'/JsOS.php') ;
 		}
 	}
+
 ?>
 
 <html>
@@ -30,7 +31,14 @@
 				</br>
 				<div class="center">
 					<h1>Login</h1>
-					<form method="post">
+					<?php
+						if($_SERVER['REQUEST_METHOD'] === 'GET' && isLoggedIn())
+						{
+							echo '<h3>You are already logged in :)</h3>';
+						}
+						else if($_SERVER['REQUEST_METHOD'] === 'GET' && !isLoggedIn())
+						{
+						echo'<form method="post">
 						<input type="text" id="username" name="username" value="Insert username" data-defaultValue="Insert username"></input>
 						<label>Username</label>
 						</br>
@@ -39,14 +47,14 @@
 						<label>Password</label>
 						</br>
 						</br>
-						<input type="submit" value="Login"></input>
-						<?php 
+						<input type="submit" value="Login"></input>';
 							if(!$succesfulLogin)
 							{
 								echo "<label></br>Wrong Username or Password.</label>";
 							}
-						?>
-					</form>
+					echo '</form>';
+					}
+					?>
 				</div>
 				</br>
 			</div>
