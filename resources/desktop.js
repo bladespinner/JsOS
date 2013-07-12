@@ -1,6 +1,6 @@
 var iconArr;
 var Processes;
-
+var username;
 function ToggleFullScreen()
 {
 	if($.fullscreen.isFullScreen())
@@ -35,24 +35,46 @@ function InitializeStartMenu()
 	};
 	var nohovfun = function(){
 		console.log(hovercount);
-		hovercount--;
-		if(hovercount <= 0)
+		setTimeout(function()
 		{
-			hovercount=0;
-			$("#startMenu").hide();
-		}
+			hovercount--;
+			if(hovercount <= 0)
+			{
+				hovercount=0;
+				$("#startMenu").hide();
+			}
+		},1000);
 	};
 	$("#startBtn").mouseenter(hovfun);
 	$("#startMenu").mouseenter(hovfun);
 	$("#startBtn").mouseout(nohovfun);
 	$("#startMenu").mouseout(nohovfun);
 	$("#startMenu button").mouseenter(hovfun);
-	$("#startMenu button").mouseout(nohovfun);
 
 	//Adding logic to elements in it:
 
 	$("#fullscrnBtn").click(ToggleFullScreen);
+	$("#marketBtn").click(function(){
+		var _window = MarketWindow({
+			width:500,
+			height:300,
+			posx:400,
+			posy:300,
+			resizable:true
+		});
 
+		CreateProcess(_window,"market");
+	});
+	$("#fileSysBtn").click(function(){
+		var _window = DirectoryWindow({
+			width:500,
+			height:300,
+			posx:200,
+			posy:200,
+			resizable:true,
+			title:"File System"},"");
+		CreateProcess(_window,"filesys");
+	});
 }
 function InitializeProcessObject()
 {
@@ -75,16 +97,20 @@ function LoadSettings()
 	InitializeClock();
 	InitializeStartMenu();
 	InitializeProcessObject();
+
+	username = $("#username").val();
+
 	var defaultSettings = new Object();
 	defaultSettings.background = "#A7BACC"
 	defaultSettings.iconData = new Object();
 	defaultSettings.iconData.lastEmpty = {posx:0,posy:0};
 
-	$('#desktop').css("background-color","#A7BACC");
+	$('#desktop').css("background-color",defaultSettings.background);
 	iconArr.lastEmpty={posx:0,posy:0};
 }
 function CreateDesktopIcon(posx,posy,effect)
 {
+	/*TODO
 	posx = Math.floor(posx/32);
 	posy = Math.floor(posy/32);
 	
@@ -118,9 +144,15 @@ function CreateDesktopIcon(posx,posy,effect)
 	}
 	if(!found)iconArr.lastEmpty = undefined;
 
-	return icon;
+	return icon;*/
 }
 
+function StopProcess(id)
+{
+	$(Processes[id].window).remove();
+	$(Processes[id].taskbarIcon).remove();
+	delete Processes[i];
+}
 
 function CreateProcess(_window,name,background)//background - Possible extention point
 {
@@ -139,12 +171,14 @@ function CreateProcess(_window,name,background)//background - Possible extention
 	process.taskbarIcon = icon;
 
 	_window.taskbarIcon = icon;
+	_window.processId = id;
 
 	Processes[id] = process;
 
 	$(_window.bar.buttonHolder.closeBtn).click(function(){
-		delete Processes[id];
-		$(icon).remove();
+		StopProcess(id);
+		//delete Processes[id];
+		//$(icon).remove();
 	});
 	var focusWindow = function()
 	{
