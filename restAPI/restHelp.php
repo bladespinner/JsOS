@@ -187,7 +187,8 @@
 		if(hasAccess($dir))
 		{
 			$dir = translatePath($dir);
-			return file_put_contents($dir,base64_decode($data));
+			$decoded = base64_decode($data);
+			return file_put_contents($dir,$decoded);
 		}
 	}
 

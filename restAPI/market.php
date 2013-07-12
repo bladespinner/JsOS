@@ -29,10 +29,24 @@
 		}
 	}
 	$result = "";
+	if($_SERVER['REQUEST_METHOD'] === 'POST')
+	{
+		$info = $_POST['json'];
+
+	}
 	else if($_SERVER['REQUEST_METHOD'] === 'GET')
 	{
+		
 		$info = $_GET['json'];
 		$result = GetMarketProgram($info["item"]);
+	}
+	else if($_SERVER['REQUEST_METHOD'] === 'PUT')
+	{
+
+	}
+	else if($_SERVER['REQUEST_METHOD'] === 'DELETE')
+	{
+
 	}
 	echo json_encode($result);
 

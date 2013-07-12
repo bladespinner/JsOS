@@ -3,14 +3,15 @@
 	{
 		for($i = 0 ; $i < strlen($str);$i++)
 		{
+
 			$ch = $str[$i] ;
 			$isLowercaseLetter = ($ch >= 'a') && ($ch <= 'z') ;
-			$isUppercaseLetter = $ch >= 'A' && $ch <= 'Z' ;
-			$isNumber = $ch >= '0' && $ch <= '9' ;
+			$isUppercaseLetter = ($ch >= 'A') && ($ch <= 'Z') ;
+			$isNumber = ($ch >= '0') && ($ch <= '9') ;
 			$isSpecial = false;
 			if($allowSpecialSymbols)
 			{
-				$isSpecial = $ch == '@' || $ch == '!';
+				$isSpecial = ($ch == '@') || ($ch == '!');
 			}
 			if(!$isLowercaseLetter && !$isUppercaseLetter && !$isNumber && !$isSpecial)
 			{
@@ -93,11 +94,12 @@
 		$sufficientPassLen = strlen($username)>=7;
 		$sufficientUsrNameLen = strlen($password)>=4;
 		$passwordsMatch = $password === $passwordRepeat;
-		return isAlphanumeric($username,false) &&
-			   isAlphanumeric($password,true) &&
-			   $sufficientPassLen &&
-			   $passwordsMatch &&
-			   $sufficientUsrNameLen;
+		$usernameIsAlphanumeric = isAlphanumeric($username,false) ;
+		var_dump($usernameIsAlphanumeric);
+		$passIsAlphanumeric = isAlphanumeric($password,true);
+		var_dump($passIsAlphanumeric);
+		$result = $usernameIsAlphanumeric && $passIsAlphanumeric && $sufficientPassLen &&$passwordsMatch &&$sufficientUsrNameLen;
+		return result;
 	}
 	function setLoggedIn($username)
 	{

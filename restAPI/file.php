@@ -1,24 +1,55 @@
 <?php
-	include_once "restHelp.php"
-	function getFile($path)
-	{
-		return getBase64File($path)
-	}
+	include_once "restHelp.php";
 
-	function postFile($path,$file,$format,$copyPath)
+	session_start();
+
+	function getFile($path,$format)
 	{
-		if($format == "base64")
+		if($format === "base64")
 		{
-			return writeBase64File($path,$file)
+			return getBase64File($path);
 		}
 		else
 		{
 			if(hasAccess($path))
 			{
 				$path = translatePath($path);
-				return file_put_contents($path,base64_decode($file));
+				return file_get_contents($path);
 			}
 		}
+		
+	}
+
+	function postFile($path,$file,$format,$copyPath)
+	{
+		if($copyPath!=="")
+		{
+			if(hasAccess($path))
+			{
+				if(hasAccess($copyPath))
+				{
+					$path = translatePath($path);
+					$copyPath = translatePath($copyPath);
+					$contents = file_get_contents($copyPath);
+					return file_put_contents($path,$contents);
+				}
+				else return -1;
+			}
+			else return -1;	
+		}
+		else if($format === "base64")
+		{
+			return writeBase64File($path,$file);
+		}
+		else
+		{
+			if(hasAccess($path))
+			{
+				$path = translatePath($path);
+				return file_put_contents($path,$file);
+			}
+		}
+		return 1;
 	}
 
 	function deleteFile($path)
@@ -26,6 +57,7 @@
 		if(hasAccess($path))
 		{	
 			$path = translatePath($path);
+
 			return unlink($path);
 		}
 		else return 1;
@@ -56,7 +88,7 @@
 	else if($_SERVER['REQUEST_METHOD'] === 'GET')
 	{
 		$info = $_GET['json'];
-		$result = getFile($info["path"]);
+		$result = getFile($info["path"],$info["format"]);
 	}
 	else if($_SERVER['REQUEST_METHOD'] === 'PUT')
 	{

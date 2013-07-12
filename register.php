@@ -8,7 +8,7 @@
 	$registerSuccess = false;
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-		if(validNames($_POST["password"],$_POST["username"],$_POST["passwordRepeat"]))
+		if(validNames($_POST["username"],$_POST["password"],$_POST["passwordRepeat"]))
 		{
 			$con=getDBConnection();
 			if (mysqli_connect_errno($con))
