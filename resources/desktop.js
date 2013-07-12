@@ -114,11 +114,11 @@ function LoadSettings()
 	username = $("#username").val();
 
 	var defaultSettings = new Object();
-	defaultSettings.background = "#A7BACC"
+	defaultSettings.background = "#A7BACC";
 	defaultSettings.iconData = new Object();
 	defaultSettings.iconData.lastEmpty = {posx:0,posy:0};
 
-	$('#desktop').css("background-color",defaultSettings.background);
+	//$('#desktop').css("background-color",defaultSettings.background);
 	iconArr.lastEmpty={posx:0,posy:0};
 }
 function CreateDesktopIcon(posx,posy,effect)

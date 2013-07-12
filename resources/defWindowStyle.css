@@ -156,7 +156,16 @@ html,body
 	height:100%;
 	margin:0;
 	overflow:hidden;
-	background-color:red;
+	background: #e4f5fc;
+	background: -moz-linear-gradient(-45deg,  #e4f5fc 0%, #9fd8ef 19%, #bfe8f9 31%, #9fd8ef 40%, #aaddb2 79%, #2ab0ed 100%);
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#e4f5fc), color-stop(19%,#9fd8ef), color-stop(31%,#bfe8f9), color-stop(40%,#9fd8ef), color-stop(79%,#aaddb2), color-stop(100%,#2ab0ed));
+	background: -webkit-linear-gradient(-45deg,  #e4f5fc 0%,#9fd8ef 19%,#bfe8f9 31%,#9fd8ef 40%,#aaddb2 79%,#2ab0ed 100%);
+	background: -o-linear-gradient(-45deg,  #e4f5fc 0%,#9fd8ef 19%,#bfe8f9 31%,#9fd8ef 40%,#aaddb2 79%,#2ab0ed 100%);
+	background: -ms-linear-gradient(-45deg,  #e4f5fc 0%,#9fd8ef 19%,#bfe8f9 31%,#9fd8ef 40%,#aaddb2 79%,#2ab0ed 100%);
+	background: linear-gradient(135deg,  #e4f5fc 0%,#9fd8ef 19%,#bfe8f9 31%,#9fd8ef 40%,#aaddb2 79%,#2ab0ed 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e4f5fc', endColorstr='#2ab0ed',GradientType=1 );
+
+
 }
 #toolbar
 {
