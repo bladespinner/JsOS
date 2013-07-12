@@ -34,11 +34,10 @@ html,body
 .window .content .curdirBar
 {
 	height:25px;
-	width:98%;
+	width:99%;
 	margin-left: 1%;
 	margin-top: 3px;
 	margin-bottom: 3px;
-	margin-right: 1%;
 }
 .window .content .dirTool
 {
@@ -48,7 +47,7 @@ html,body
 	border-bottom:solid 1px #999999;
 	border-top:solid 1px #999999;
 }
-.window .content .dirTool .backArrow
+.window .content .dirTool .dButton
 {
 	position: relative;
 	left:2px;
@@ -56,14 +55,15 @@ html,body
 	height:23px;
 	top:1px;
 }
-.window .content .dirTool .addDir
+.window .content .dirTool .txtArea
 {
-	position: relative;
+	position: relative;;
 	left:2px;
-	width:23px;
-	height:23px;
-	top:1px;
+	width: 70px;
+	height: 23px;
+	top:-0.5em;;
 }
+
 .window .content .fileList
 {
 	position: relative;
@@ -299,4 +299,22 @@ html,body
 	position: relative;
 	width: 46px;
 	height: 46px;
+}
+.dirFileMenu
+{
+	padding: 2px;
+	position: fixed;
+	background-color:rgba(200,230,225,0.8);
+	border:black 1px solid;
+	z-index: 3000;
+}
+.dirFileMenu div
+{
+	position: :relative;
+	border-bottom: black 1px solid;
+	width: 100%;
+}
+.dirFileMenu div:hover
+{
+	background-color:yellow;
 }

@@ -64,10 +64,11 @@ function InitializeProcessObject()
 		return result;
 	};
 }
-function InitializeTaskbarIcons()
-{
-	//$("#iconHolder").horizontalScroll();
-}
+//Prevent context menu from showing
+$(document).ready(function(){ 
+  document.oncontextmenu = function() {return false;};
+
+});
 
 function LoadSettings()
 {

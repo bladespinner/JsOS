@@ -220,43 +220,118 @@ function GetFileExtention(file)
 {
 
 }
-/*function GetDataFillWithContext(_window,dirList,path)
+
+function DrawDirectoryInWindow(dirName,path,_window)
 {
-	return function(data){
-		//$(dirList).html("");
-		for(var i=0;i<data["folders"].length;i++)
-		{
-			var listElement = document.createElement("li");
-			var imageUrl = "resources/folder.png";
-			var img = document.createElement("img");
-			$(img).attr("src",imageUrl);
-			$(listElement).append(img);
-			$(listElement).click(function()
-			{
-				getDirectories(path+"\\"+data["folders"][i],GetDataFillWithContext(_window,dirList,path+"\\"+data["folders"][i]));
-			});
-			$(listElement).html($(listElement).html()+data["folders"][i]);
-			$(dirList).append(listElement);
-		}
-		for(var i=0;i<data["files"].length;i++)
-		{
-			var listElement = document.createElement("li");
-			var extention = GetFileExtention(data["files"][i]);
-			var imageUrl = GetExtentionImageUrl(extention);
-			var img = document.createElement("img");
-			$(img).attr("src",imageUrl);
-			$(listElement).append(img);
-			$(listElement).html($(listElement).html()+data["files"][i]);
-			$(dirList).append(listElement);
-		}
-	};
-}*/
+	var listElement = document.createElement("li");
+	var imageUrl = "resources/folder.png";
+	var img = document.createElement("img");
+	$(img).attr("src",imageUrl);
+	$(listElement).append(img);
+	var fName = dirName
+	listElement.path = path+"\\"+fName;
+
+	//listElement._window = _window;
+	$(listElement).click(function()
+	{
+		getDirectories(this.path,DrawFSResult(_window,this.path,false));
+	});
+	$(listElement).mousedown(function(e)
+	{ 
+	    if( e.button == 2 ) 
+	    { 
+	    	var dirMenu = document.createElement("div");
+	    	$(dirMenu).addClass("dirFileMenu");
+	    	$(dirMenu).css("top",e.pageY-25);
+	    	$(dirMenu).css("left",e.pageX-25);
+	    	var deleteBtn = document.createElement("div");
+	    	var renameBtn = document.createElement("div");
+	    	$(deleteBtn).html("Delete");
+	    	$(renameBtn).html("Rename");
+	    	$(dirMenu).append(deleteBtn);
+	    	$(dirMenu).append(renameBtn);
+	    	$("#desktop").append(dirMenu);
+	    	dirMenu.hoverCount=1;
+	    	var mouseEnterMenuFunct = function(e)
+	    	{
+	    		dirMenu.hoverCount++;
+	    		console.log(dirMenu.hoverCount);
+	    	};
+	    	var mouseLeaveMenuFunct = function(e)
+	    	{
+	    		dirMenu.hoverCount--;
+	    		console.log(dirMenu.hoverCount);
+	    		if(dirMenu.hoverCount <= 0)
+	    		{
+	    			$(dirMenu).remove();
+	    		}
+	    	};
+
+	    	$(deleteBtn).click(function()
+	    	{
+	    		deleteDirectory(listElement.path,function(data)
+    			{
+    				if(data == 0)
+    				{
+    					$(listElement).remove();
+    					$(dirMenu).remove();
+    				}
+    			});
+	    	});
+	    	$(renameBtn).click(function()
+	    	{
+	    		
+	    		//dirToolBar
+				var txtArea = document.createElement("input");
+				$(txtArea).attr("type","text");
+				$(txtArea).addClass("txtArea");
+				$(_window.dirToolBar).append(txtArea);
+				$(txtArea).focus();
+				$(txtArea).focusout(function(){
+					$(this).remove();
+
+				});
+				$(txtArea).keydown(function(e){
+					if(e.keyCode == 13)//enter pressed
+					{
+						var renameName = $(this).val();
+						renameDirectory(listElement.path,path+"\\"+renameName,function(data)
+						{
+							if(data == 0)
+							{
+								var img = document.createElement("img");
+								$(img).attr("src",imageUrl);
+								$(listElement).html("");
+								$(listElement).append(img);
+								listElement.path = path+"\\"+renameName;
+								$(listElement).html($(listElement).html()+renameName);
+							}
+						});
+						$(txtArea).remove();
+					}
+				});
+	    		$(dirMenu).remove();
+	    	});
+	    	$(deleteBtn).mouseout(mouseLeaveMenuFunct);
+	    	$(deleteBtn).mouseenter(mouseEnterMenuFunct);
+	    	$(renameBtn).mouseout(mouseLeaveMenuFunct);
+	    	$(renameBtn).mouseenter(mouseEnterMenuFunct);
+	    	$(dirMenu).mouseenter(mouseEnterMenuFunct);
+	    	$(dirMenu).mouseout(mouseLeaveMenuFunct);
+			return false;
+	    } 
+	    return true; 
+	}); 
+	$(listElement).html($(listElement).html()+fName);
+	$(_window.dirList).append(listElement);
+}
+
 function DrawFSResult(_window,path,noHistory)
 {
 	return function(data)
 	{
 		$(_window.dirList).html("");
-		$(_window.pathbar).attr("value",path);
+		$(_window.pathbar).val(path);
 
 		if(!noHistory)
 		{
@@ -275,21 +350,7 @@ function DrawFSResult(_window,path,noHistory)
 
 		for(var i=0;i<data["folders"].length;i++)
 		{
-			var listElement = document.createElement("li");
-			var imageUrl = "resources/folder.png";
-			var img = document.createElement("img");
-			$(img).attr("src",imageUrl);
-			$(listElement).append(img);
-			var fName = data["folders"][i];
-			listElement.path = path+"\\"+fName;
-
-			//listElement._window = _window;
-			$(listElement).click(function()
-			{
-				getDirectories(this.path,DrawFSResult(_window,this.path,false));
-			});
-			$(listElement).html($(listElement).html()+fName);
-			$(_window.dirList).append(listElement);
+			DrawDirectoryInWindow(data["folders"][i],path,_window);
 		}
 		for(var i=0;i<data["files"].length;i++)
 		{
@@ -304,6 +365,12 @@ function DrawFSResult(_window,path,noHistory)
 		}
 	};
 }
+function DirFileMenu(clickData)
+{
+	var menu = document.createElement("div");
+	$(menu).addClass("")
+}
+
 function DirectoryWindow(data,path)
 {
 	data.iconUrl="resources/folder.png";
@@ -313,44 +380,78 @@ function DirectoryWindow(data,path)
 	var pathbar = document.createElement("input");
 	var dirToolBar = document.createElement("div");
 	var backBtn = document.createElement("img");
-	var addBtn = document.createElement("img");
+	var createDirBtn = document.createElement("img")
 
 	var _window = CreateWindow(data);
 	if(!path)path="";
 	
 	$(dirList).addClass("fileList");
 	$(dirToolBar).addClass("dirTool");
-	$(backBtn).addClass("backArrow")
+	$(backBtn).addClass("dButton");
+	$(createDirBtn).addClass("dButton");
 	$(pathbar).addClass("curdirBar");
 
 	$(backBtn).attr("src","resources/leftarrow.png");
+	$(createDirBtn).attr("src","resources/plus.png");
 	backBtn.pathPath=new Object();
 	backBtn.pathPath.cur = path;
-	//backBtn._window = _window;
+
 	_window.backBtn = backBtn;
 	$(backBtn).click(function(){
-		if(_window.curPath == this.pathPath.cur)
-		{
-			this.pathPath = this.pathPath.last;
-		}
+		var tmpPath = this.pathPath.cur;
+		this.pathPath=this.pathPath.last;
 		if(this.pathPath === undefined)
 		{
 			this.pathPath = new Object();
 			this.pathPath.cur = "";
 		}
-		var tmpPath = this.pathPath.cur;
-		this.pathPath=this.pathPath.last;
 		getDirectories(tmpPath,DrawFSResult(_window,tmpPath,true));
 	});
+	$(createDirBtn).click(function(){
+		var txtArea = document.createElement("input");
+		$(txtArea).attr("type","text");
+		$(txtArea).addClass("txtArea");
+		$(this).after(txtArea);
+		$(txtArea).focus();
+		$(txtArea).focusout(function(){
+			$(this).remove();
+		});
+		$(txtArea).keydown(function(e){
+			if(e.keyCode == 13)//enter pressed
+			{
+				var createName = $(this).val();
+				var createPath = _window.curPath + "\\" + createName;
+				createDirectory(createPath,function(data)
+				{
+					if(data == 0)
+					{
+
+						DrawDirectoryInWindow(createName,_window.curPath,_window);
+					}
+				});
+				$(txtArea).remove();
+			}
+			
+		});
+	});
+	//.focusout()
 	$(dirToolBar).append(backBtn);
+	$(dirToolBar).append(createDirBtn);
 
 	$(pathbar).attr("type","text");
-	
 	$(pathbar).attr("value",path);
+	$(pathbar).keydown(function(e){
+		if(e.keyCode == 13)//enter pressed
+		{
+		    getDirectories($(this).val(),DrawFSResult(_window,$(this).val(),false));
+		}
+	});
+
 	var content = _window.content;
 	_window.curPath = path;
 	_window.dirList = dirList;
 	_window.pathbar = pathbar;
+	_window.dirToolBar = dirToolBar;
 	$(content).append(pathbar);
 	$(content).append(dirToolBar);
 	$(content).append(dirList);

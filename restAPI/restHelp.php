@@ -63,6 +63,10 @@
 		if(!isLoggedIn())return false;
 
 		$dir = substr($dir,5);//remove 'Disk\' part
+		while($dir[0] == '\\')
+		{
+			$dir = substr($dir,1);
+		}
 
 		$dir = joinPaths($_SERVER['DOCUMENT_ROOT'],_USERFILESYS,$_SESSION['username'],$dir);
 		$dir = str_replace('/', '\\', $dir);
