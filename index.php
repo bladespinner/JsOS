@@ -1,3 +1,7 @@
+<?php
+include_once 'helpers/membership.php';
+session_start();
+?>
 <html>
 	<head>
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
@@ -5,10 +9,9 @@
 	</head>
 	<body>
 		<div class="paper">
-		
 			<div class="content">
 				<h1>JsOS - The online operating system!</h1>
-				<aside><a href="login.html">Login</a>|<a href="login.html">Logout</a>| IvanKonstantinov</aside>
+				<?php include 'controls/loginbar.php'; ?>
 				<div>
 					<div class="accent">
 						<h2>What is JsOS ?</h2>
@@ -57,11 +60,11 @@
 					</div>
 					</br></br></br>
 				</div>
-				<h3><a href="OS.html">Try it Now!</a></h3>
+				<h3><a href="JsOS.php">Try it Now!</a></h3>
 			</div>
 			
 			<footer>
-				<a href="OS.html">JsOS</a> | <a href="login.html">Login</a> | <a href="register.html">Register</a> | <a href="about.html">About</a> | <a href="index.html">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
+				<a href="JsOS.php">JsOS</a>  <?php if(!isLoggedIn()) echo' |<a href="login.php">Login</a>'?> <?php if(!isLoggedIn()) echo '|<a href="register.php">Register</a>' ?>| <a href="about.html">About</a> | <a href="index.php">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
 			</footer>
 		</div>
 	</body>
