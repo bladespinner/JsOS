@@ -5,8 +5,8 @@
 		{
 			$ch = $str[$i] ;
 			$isLowercaseLetter = ($ch >= 'a') && ($ch <= 'z') ;
-			$isUppercaseLetter = $ch >= 'A' && $ch <= 'Z' ;
-			$isNumber = $ch >= '0' && $ch <= '9' ;
+			$isUppercaseLetter = ($ch >= 'A') && ($ch <= 'Z') ;
+			$isNumber = ($ch >= '0') && ($ch <= '9') ;
 			$isSpecial = false;
 			if($allowSpecialSymbols)
 			{
@@ -75,6 +75,7 @@
 		$username = mysql_real_escape_string($username);
 		$sql = "SELECT * FROM `user` where `UserName` ='".$username."'";
 		$result = mysqli_query($con,$sql);
+		var_dump($result);
 		$row = mysqli_fetch_array($result);
 		if($row)
 		{
@@ -82,7 +83,7 @@
 			$role=$row['Role'];
 			if($hash === $row['Hash'])
 			{
-				setLoggedIn($username);
+				setLoggedIn($username,$role);
 				return true;
 			}
 			else return false;
@@ -105,6 +106,5 @@
 	{
 		$_SESSION['username'] = $username;
 		$_SESSION['loggedIn'] = true;
-		$_SESSION['role']=$role;
 	} 
 ?>

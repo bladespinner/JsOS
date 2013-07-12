@@ -11,7 +11,7 @@
 		$succesfulLogin = login($con,$_POST['username'],$_POST['password']);
 		if($succesfulLogin)
 		{
-			header( 'Location: http://localhost:8088/JsOS/JsOS.html' ) ;
+			//header( 'Location: http://localhost:8088/JsOS/JsOS.html') ;
 		}
 	}
 ?>
