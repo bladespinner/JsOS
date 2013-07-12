@@ -9,9 +9,10 @@ var _window = CreateWindow({
 CreateProcess(_window,"taskManager");
 
 var content = _window.content;
-
+var interval;
 function TrackProcesses()
 {
+	if(!content)stopInterval(interval);
 	$(content).html("");
 	for(var v in Processes)
 	{
@@ -40,7 +41,7 @@ function TrackProcesses()
 		}
 	}
 }
-setInterval(TrackProcesses,1000);
+interval = setInterval(TrackProcesses,1000);
 
 
 /*
