@@ -1,3 +1,11 @@
+<?php
+session_start();
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
+?>
 <?php 
 var_dump($_SERVER['REQUEST_METHOD']);
 $flag=false;
@@ -12,3 +20,4 @@ $flag=false;
 		header('Location: viewProgram.php?success='.$flag);
 	}
 header('Location: viewProgram.php?success='.$flag);
+?>

@@ -1,3 +1,11 @@
+<?php
+session_start();
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
+?>
 <?php 
 include_once './dirContent.php';
 $flag=false;
@@ -13,3 +21,4 @@ $flag=false;
 	 	header('Location: viewPrograms.php?success='.$flag);
 	}
 header('Location: viewPrograms.php?success='.$flag);
+?>

@@ -1,4 +1,10 @@
 <?php
+session_start();
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
 ?>
 <html>
 	<head>

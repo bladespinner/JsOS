@@ -1,4 +1,12 @@
 <?php
+session_start();
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
+?>
+<?php
 
 	function getDirectoryContents($dir)
 	{
@@ -32,3 +40,4 @@
 	        } 
 	        return rmdir($dir); 
 	    }
+	   ?>

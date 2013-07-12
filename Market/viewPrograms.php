@@ -1,6 +1,13 @@
 <?php
 include_once './dirContent.php'
 ?>
+<?php
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
+?>
 <html>
 	<head>
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>

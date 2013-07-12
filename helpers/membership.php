@@ -76,12 +76,26 @@
 		$sql = "SELECT * FROM `user` where `UserName` ='".$username."'";
 		$result = mysqli_query($con,$sql);
 		$row = mysqli_fetch_array($result);
+		$sql='SELECT  `Role_idRole` FROM  `role_has_user` WHERE  `User_UserId` ='.$row['UserId'];
+		$result = mysqli_query($con,$sql);
+		$row2= mysqli_fetch_array($result);
+		if($row2)
+		{
+			
+			$sql='SELECT `Name` FROM `role` WHERE `idRole`='.$row2['Role_idRole'];
+			$result=mysqli_query($con,$sql);
+			$row3=mysqli_fetch_array($result);
+			//row3['Name'];
+		}
 		if($row)
 		{
 			$hash = hashPassword($password,$row['Salt']);
 			if($hash === $row['Hash'])
 			{
-				setLoggedIn($username);
+				if(isset($row3['Name']))
+					setLoggedIn($username,$row3['Name']);
+				else
+					setLoggedIn($username,"user");
 				return true;
 			}
 			else return false;
@@ -95,15 +109,14 @@
 		$sufficientUsrNameLen = strlen($password)>=4;
 		$passwordsMatch = $password === $passwordRepeat;
 		$usernameIsAlphanumeric = isAlphanumeric($username,false) ;
-		var_dump($usernameIsAlphanumeric);
 		$passIsAlphanumeric = isAlphanumeric($password,true);
-		var_dump($passIsAlphanumeric);
 		$result = $usernameIsAlphanumeric && $passIsAlphanumeric && $sufficientPassLen &&$passwordsMatch &&$sufficientUsrNameLen;
 		return result;
 	}
-	function setLoggedIn($username)
+	function setLoggedIn($username,$rank)
 	{
 		$_SESSION['username'] = $username;
 		$_SESSION['loggedIn'] = true;
+		$_SESSION['rank']=$rank;
 	} 
 ?>

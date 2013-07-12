@@ -1,4 +1,10 @@
 <?php
+session_start();
+if($_SESSION['rank']!='admin')
+{
+http_response_code(403);
+exit();
+}
 ?>
 <html>
 	<head>
@@ -11,16 +17,22 @@
 		
 			<div class="content">
 				<h1><a href="adminPanel.php"> Admin Panel <a></h1>
+
 				<?php
-					echo'<form  method="post"  action="./update_file.php" enctype="multipart/form-data">';
-					echo'<input type="hidden" name="programName" value="'.$_POST['programName'].'" ></input>';
-					echo'<br/>';
-					echo'<label for="file"> Fiename: </label>';
-					echo'<br/>';
-					echo'<input type="file" name="file0" id="file"> </br></br>';
-					echo'<a id="uploader" href=""> Upload more </a> <br/><br/>';
-					echo'<input type="submit" value="Submit">';
-					echo'</form>'
+					if($_SERVER['REQUEST_METHOD']==="POST" && isset($_POST['programName']))
+					{
+						echo'<form  method="post"  action="./update_file.php" enctype="multipart/form-data">';
+						echo'<input type="hidden" name="programName" value="'.$_POST['programName'].'" ></input>';
+						echo'<br/>';
+						echo'<label for="file"> Fiename: </label>';
+						echo'<br/>';
+						echo'<input type="file" name="file0" id="file"> </br></br>';
+						echo'<a id="uploader" href=""> Upload more </a> <br/><br/>';
+						echo'<input type="submit" value="Submit">';
+						echo'</form>';
+					}
+					else
+					echo '<h3>ERROR</h3>';
 					?>
 					
 			</div>
