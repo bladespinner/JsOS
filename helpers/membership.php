@@ -3,16 +3,16 @@
 	{
 		for($i = 0 ; $i < strlen($str);$i++)
 		{
-			$ch = $str[i] ;
+			$ch = $str[$i] ;
 			$isLowercaseLetter = ($ch >= 'a') && ($ch <= 'z') ;
 			$isUppercaseLetter = $ch >= 'A' && $ch <= 'Z' ;
 			$isNumber = $ch >= '0' && $ch <= '9' ;
 			$isSpecial = false;
-			if($specialSymbols)
+			if($allowSpecialSymbols)
 			{
 				$isSpecial = $ch == '@' || $ch == '!';
 			}
-			if(!$isLowercaseLetter && !$isUppercaseLetter && !$isNumber && !isSpecial)
+			if(!$isLowercaseLetter && !$isUppercaseLetter && !$isNumber && !$isSpecial)
 			{
 				return false;
 			}
@@ -94,7 +94,7 @@
 		$sufficientUsrNameLen = strlen($password)>=4;
 		$passwordsMatch = $password === $passwordRepeat;
 		return isAlphanumeric($username,false) &&
-			   isAlphanumeric($passord,true) &&
+			   isAlphanumeric($password,true) &&
 			   $sufficientPassLen &&
 			   $passwordsMatch &&
 			   $sufficientUsrNameLen;

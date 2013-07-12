@@ -12,6 +12,14 @@ include_once './dirContent.php'
 			<div class="content">
 				<h1><a href="adminPanel.php"> Admin Panel </a></h1>
 					<?php
+						if(isset( $_GET['success']) && $_GET['success']==='1')
+						{
+							echo '<h3> File deleted successfull.</h3>';
+						}
+						else if(isset($_GET['success']) && $_GET['success']==='')
+						{
+							echo '<h3>Operation failed.</h3>';
+						}
 
 						$result=getDirectoryContents("./programs");
 						$i=0;
@@ -20,10 +28,20 @@ include_once './dirContent.php'
 							echo "<h3>Program: ". $result['folders'][$i]. "<br/></h3>";
 							echo '<form method="post" action="viewProgram.php">';
 							echo '<input type="hidden" name="fileName" value="'.$result['folders'][$i].'" ></input>';
-							echo '<input type="submit" value="Change" ></input>';
+							echo '<input type="submit" value="Change"></input>';
+							echo '</form>';
+							echo '<form method="post" action="deleteHoleProgram.php">';
+							echo '<input type="hidden" name="dirName" value="./programs/'.$result['folders'][$i].'" ></input>';
+							echo '<input type="submit" value="Delete" ></input>';
+							echo '</form>';
+
+							echo '<form method="post" action="updateProgram.php">';
+							echo '<input type="hidden" name="programName" value="'.$result['folders'][$i].'" ></input>';
+							echo '<input type="submit" value="Add more files" ></input>';
 							echo '</form>';
 							$i++;
 						}
+							
 
 
 							

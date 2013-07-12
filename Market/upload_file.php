@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
       if (!is_dir($dir) || is_link($dir)) return unlink($dir); 
           foreach (scandir($dir) as $file) { 
               if ($file == '.' || $file == '..') continue; 
-              if (!destroy_dir($dir . DIRECTORY_SEPARATOR . $file)) { 
+              if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $file)) { 
                   chmod($dir . DIRECTORY_SEPARATOR . $file, 0777); 
-                  if (!destroy_dir($dir . DIRECTORY_SEPARATOR . $file)) return false; 
+                  if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $file)) return false; 
               }; 
           } 
           return rmdir($dir); 

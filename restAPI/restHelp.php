@@ -6,9 +6,9 @@
 	    if (!is_dir($dir) || is_link($dir)) return unlink($dir); 
 	        foreach (scandir($dir) as $file) { 
 	            if ($file == '.' || $file == '..') continue; 
-	            if (!destroy_dir($dir . DIRECTORY_SEPARATOR . $file)) { 
+	            if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $file)) { 
 	                chmod($dir . DIRECTORY_SEPARATOR . $file, 0777); 
-	                if (!destroy_dir($dir . DIRECTORY_SEPARATOR . $file)) return false; 
+	                if (!deleteDirectory($dir . DIRECTORY_SEPARATOR . $file)) return false; 
 	            }; 
 	        } 
 	        return rmdir($dir); 
@@ -146,6 +146,7 @@
 			$result['files'] = array();
 			foreach($contents as $item)
 			{
+				
 				if(is_dir($dir."\\".$item))
 				{
 					if($item==='.' || $item==='..')continue;
@@ -166,6 +167,24 @@
 			else return 1;
 		}
 		return -1;
+	}
+
+	function getBase64File($dir)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			$fileToStr = file_get_contents($dir);
+			return base64_encode($fileToStr);
+		}
+	}
+	function writeBase64File($dir,$data)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			return file_put_contents($dir,base64_decode($data));
+		}
 	}
 
 	if($_SERVER['REQUEST_METHOD'] === 'PUT')

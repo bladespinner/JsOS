@@ -12,12 +12,12 @@ include_once './dirContent.php'
 			<div class="content">
 				<h1><a href="adminPanel.php"> Admin Panel </a></h1>
 					<?php
-						$bla =isset( $_GET['success']) && $_GET['success']==='1';
-						if($bla)
+						
+						if(isset( $_GET['success']) && $_GET['success']==='1')
 						{
 							echo '<h3> File deleted successfull.</h3>';
 						}
-						else 
+						else if(isset( $_GET['success']) && $_GET['success']==='')
 						{
 							echo '<h3>Operation failed.</h3>';
 						}
