@@ -283,12 +283,10 @@ function DrawDirectoryInWindow(dirName,path,_window)
 	    	var mouseEnterMenuFunct = function(e)
 	    	{
 	    		dirMenu.hoverCount++;
-	    		console.log(dirMenu.hoverCount);
 	    	};
 	    	var mouseLeaveMenuFunct = function(e)
 	    	{
 	    		dirMenu.hoverCount--;
-	    		console.log(dirMenu.hoverCount);
 	    		if(dirMenu.hoverCount <= 0)
 	    		{
 	    			$(dirMenu).remove();
@@ -393,12 +391,10 @@ function DrawFileInWindow(fileName,path,_window)
 	    	var mouseEnterMenuFunct = function(e)
 	    	{
 	    		dirMenu.hoverCount++;
-	    		console.log(dirMenu.hoverCount);
 	    	};
 	    	var mouseLeaveMenuFunct = function(e)
 	    	{
 	    		dirMenu.hoverCount--;
-	    		console.log(dirMenu.hoverCount);
 	    		if(dirMenu.hoverCount <= 0)
 	    		{
 	    			$(dirMenu).remove();

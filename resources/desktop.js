@@ -29,12 +29,10 @@ function InitializeStartMenu()
 	$("#startMenu").css("bottom",$(window).height()-offset.top-$("#startBtn").height()/2);
 	var hovercount = 0;
 	var hovfun = function(){
-		console.log(hovercount);
 		hovercount++;
 		$("#startMenu").show();
 	};
 	var nohovfun = function(){
-		console.log(hovercount);
 		setTimeout(function()
 		{
 			hovercount--;
