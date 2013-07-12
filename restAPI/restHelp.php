@@ -63,6 +63,10 @@
 		if(!isLoggedIn())return false;
 
 		$dir = substr($dir,5);//remove 'Disk\' part
+		while($dir[0] == '\\')
+		{
+			$dir = substr($dir,1);
+		}
 
 		$dir = joinPaths($_SERVER['DOCUMENT_ROOT'],_USERFILESYS,$_SESSION['username'],$dir);
 		$dir = str_replace('/', '\\', $dir);
@@ -146,6 +150,7 @@
 			$result['files'] = array();
 			foreach($contents as $item)
 			{
+				
 				if(is_dir($dir."\\".$item))
 				{
 					if($item==='.' || $item==='..')continue;
@@ -166,6 +171,24 @@
 			else return 1;
 		}
 		return -1;
+	}
+
+	function getBase64File($dir)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			$fileToStr = file_get_contents($dir);
+			return base64_encode($fileToStr);
+		}
+	}
+	function writeBase64File($dir,$data)
+	{
+		if(hasAccess($dir))
+		{
+			$dir = translatePath($dir);
+			return file_put_contents($dir,base64_decode($data));
+		}
 	}
 
 	if($_SERVER['REQUEST_METHOD'] === 'PUT')
