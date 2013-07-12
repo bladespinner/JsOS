@@ -22,6 +22,10 @@ function CreateCloseBtn(holder,_window,data)
 function CreateMinimBtn(holder,_window,data)
 {
 	var minBtn = document.createElement("img");
+	$(minBtn).click(function()
+	{
+		$(_window).hide();
+	});
 	$(minBtn).attr("src",data.minBtnUrl);
 	$(holder).append(minBtn);
 	holder.minBtn = minBtn;
@@ -458,5 +462,13 @@ function DirectoryWindow(data,path)
 	var drawFunction = DrawFSResult(_window,path);
 	getDirectories(path,drawFunction);
 	//getDirectories(path,GetDataFillWithContext(_window,dirList,path));
+	return _window;
+}
+
+function MarketWindow(data)
+{
+	data.iconUrl="resources/shoppingcart.png";
+	data.title = "Market"
+	var _window = CreateWindow(data);
 	return _window;
 }

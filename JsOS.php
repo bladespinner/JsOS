@@ -54,7 +54,16 @@
 				LoadSettings();
 			})
 			function init(){
-				var win = CreateWindow({
+				var win3 = CreateWindow({
+					width:500,
+					height:300,
+					posx:400,
+					posy:300,
+					resizable:true,
+					title:"This is a test window"});
+				CreateProcess(win3,"asdf");
+
+				var win = MarketWindow({
 					width:500,
 					height:300,
 					posx:400,

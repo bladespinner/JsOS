@@ -81,5 +81,20 @@ function deleteDirectory(directory,result)
 }
 
 
+function getMarketItem(id,result)
+{
+	if(!id)id = "all";
+	var datum = {json: {item:id}};
+	$.ajax({
+	  url: baseAPIUrl+"/market.php",
+	  type: "GET",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  },
+	});
+}
+
 
 

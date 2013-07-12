@@ -148,6 +148,7 @@ function CreateProcess(_window,name,background)//background - Possible extention
 	});
 	var focusWindow = function()
 	{
+		$(_window).show();
 		Focus(_window,"override");
 	};
 	$(icon).click(focusWindow);
