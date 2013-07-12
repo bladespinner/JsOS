@@ -4,6 +4,7 @@ html,body
 	margin:0;
 	overflow:hidden;
 	font-family:"Times New Roman",Georgia,Serif;
+	list-style-type: none;
 }
 
 .window

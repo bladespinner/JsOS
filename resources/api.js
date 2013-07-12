@@ -156,5 +156,32 @@ function getFileBase64(path,result)
 	  },
 	});
 }
+function getFile(path,result)
+{
+	var datum = {json: {path:path,format:""}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "GET",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  },
+	});
+}
+
+function renameFile(path,newPath,result)
+{
+	var datum = {json: {path:path,newPath:newPath}};
+	$.ajax({
+	  url: baseAPIUrl+"/file.php",
+	  type: "PUT",
+	  data : datum,
+	  success : function(data)
+	  {
+	  	result(JSON.parse(data));
+	  },
+	});
+}
 
 //btoa() and atob()

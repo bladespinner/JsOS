@@ -30,6 +30,9 @@
 				<a href="logout.php">
 					<button id="logoutBtn" class="menubtn">Logout</button>
 				</a>
+				<a href="http://www.noviizbori2013.com" target="_blank">
+					<img src="http://noviizbori2013.com/images/resignation-button-bg.png" alt="Поискай оставка!" style="margin-left:10px;margin-top:50px" width="180" height="45" />
+				</a>
 			</div>
 			<div id="toolbar">
 				<div id="startBtn">
@@ -59,34 +62,7 @@
 			$("document").ready(function(){
 				LoadSettings();
 			})
-			function init(){
-				var win3 = CreateWindow({
-					width:500,
-					height:300,
-					posx:400,
-					posy:300,
-					resizable:true,
-					title:"This is a test window"});
-				CreateProcess(win3,"asdf");
 
-				var win = MarketWindow({
-					width:500,
-					height:300,
-					posx:400,
-					posy:300,
-					resizable:true,
-					title:"This is a test window"});
-				CreateProcess(win,"asdf");
-				
-				var win1 = DirectoryWindow({
-					width:500,
-					height:300,
-					posx:200,
-					posy:200,
-					resizable:true,
-					title:"File System"},"");
-				CreateProcess(win1,"omg");
-			}
 		</script>
 
 	</body>

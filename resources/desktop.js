@@ -80,10 +80,25 @@ function InitializeProcessObject()
 {
 	Processes = new Object();
 	Processes.nextId = 10;  //first 10 ids are reserved for system processes
-	Processes.GenId = function(){
-		var result = Processes.nextId;
+	Processes.GenId = function(_window,icon,name){
+		var id = Processes.nextId;
 		Processes.nextId++;
-		return result;
+
+		var process = new Object();
+
+		process.id = id;
+		process.name = name;
+		process.window = _window;
+		process.taskbarIcon = icon;
+
+		_window.taskbarIcon = icon;
+		_window.processId = id;
+
+		Processes[id] = process;
+
+		$(Processes).trigger("processAdd",id);
+
+		return id;
 	};
 }
 //Prevent context menu from showing
@@ -156,7 +171,6 @@ function StopProcess(id)
 
 function CreateProcess(_window,name,background)//background - Possible extention point
 {
-	var id = Processes.GenId();
 	var icon = document.createElement("li");
 	var iconImg = document.createElement("img");
 
@@ -164,16 +178,9 @@ function CreateProcess(_window,name,background)//background - Possible extention
 	$(iconImg).addClass("taskBarIcon");
 	$(icon).append(iconImg);
 
-	var process = new Object();
-	process.id = id;
-	process.name = name;
-	process.window = _window;
-	process.taskbarIcon = icon;
+	
 
-	_window.taskbarIcon = icon;
-	_window.processId = id;
-
-	Processes[id] = process;
+	var id = Processes.GenId(_window,icon,name);
 
 	$(_window.bar.buttonHolder.closeBtn).click(function(){
 		StopProcess(id);

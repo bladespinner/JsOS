@@ -71,7 +71,7 @@
 			{
 				$path = translatePath($path);
 				$pathCpy = translatePath($pathCpy);
-				if(rename($pathCpy,$newName))return 0;
+				if(rename($path,$pathCpy))return 0;
 				else return 1;
 			}
 		}
