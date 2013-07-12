@@ -166,7 +166,7 @@ function StopProcess(id)
 {
 	$(Processes[id].window).remove();
 	$(Processes[id].taskbarIcon).remove();
-	delete Processes[i];
+	delete Processes[id];
 }
 
 function CreateProcess(_window,name,background)//background - Possible extention point
