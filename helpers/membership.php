@@ -35,6 +35,7 @@
 	}
 	function register($con,$username,$password)
 	{
+		echo $username;
 		$salt = generateRndSalt();
 		$password = hashPassword($password , $salt);
 		$username = mysql_real_escape_string($username);
@@ -78,6 +79,7 @@
 		if($row)
 		{
 			$hash = hashPassword($password,$row['Salt']);
+			$role=$row['Role'];
 			if($hash === $row['Hash'])
 			{
 				setLoggedIn($username);
@@ -99,9 +101,10 @@
 			   $passwordsMatch &&
 			   $sufficientUsrNameLen;
 	}
-	function setLoggedIn($username)
+	function setLoggedIn($username,$role)
 	{
 		$_SESSION['username'] = $username;
 		$_SESSION['loggedIn'] = true;
+		$_SESSION['role']=$role;
 	} 
 ?>
