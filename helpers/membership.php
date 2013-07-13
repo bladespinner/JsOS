@@ -76,6 +76,7 @@
 		$sql = "SELECT * FROM `user` where `UserName` ='".$username."'";
 		$result = mysqli_query($con,$sql);
 		$row = mysqli_fetch_array($result);
+		if(!$row)return false;
 		$sql='SELECT  `Role_idRole` FROM  `role_has_user` WHERE  `User_UserId` ='.$row['UserId'];
 		$result = mysqli_query($con,$sql);
 		$row2= mysqli_fetch_array($result);
