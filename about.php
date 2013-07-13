@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 	<head>
 		<script src="http://code.jquery.com/jquery-2.0.1.min.js"></script>
@@ -7,7 +10,7 @@
 		<div class="paper">
 			<div class="content">
 				<h1>JsOS - The online operating system!</h1>
-				<aside><a href="login.html">Login</a>|<a href="login.html">Logout</a>| IvanKonstantinov</aside>
+				<aside><a href="login.php">Login</a>|<a href="logout.php">Logout</a>| IvanKonstantinov</aside>
 				<div class="accent">
 					<h4>Content About:</h4>
 					All information provided in official University of Utah Web sites is provided for information purposes only and does not constitute a legal contract between the University and any person or entity unless otherwise specified. Information on official University web sites is subject to change without prior notice. Although every reasonable effort is made to present current and accurate information, the University of Utah makes no guarantees of any kind.
@@ -35,9 +38,9 @@
 					Send email to: 
 					copyright@utah.edu
 				</div>
-			<footer>
-				<a href="OS.html">JsOS</a> | <a href="login.html">Login</a> | <a href="register.html">Register</a> | <a href="about.html">About</a> | <a href="index.html">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
-			</footer>
+			
+			<?php include 'controls/footer.php'; ?>
+			
 		</div>
 	</body>
 </html>

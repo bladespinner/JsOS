@@ -7,7 +7,7 @@
 		<div class="paper">
 			<div class="content">
 				<h1>JsOS - The online operating system!</h1>
-				<aside><a href="login.html">Login</a>|<a href="login.html">Logout</a>| IvanKonstantinov</aside>
+				<aside><a href="login.php">Login</a>|<a href="logout.php">Logout</a>| IvanKonstantinov</aside>
 				</br>
 				<div class="center">
 					<h1>Register</h1>
@@ -29,9 +29,8 @@
 				</div>
 				</br>
 			</div>
-			<footer>
-				<a href="OS.html">JsOS</a> | <a href="login.html">Login</a> | <a href="register.html">Register</a> | <a href="about.html">About</a> | <a href="index.html">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
-			</footer>
+				<?php include 'controls/footer.php'; ?>
+
 		</div>
 	</body>
 </html>

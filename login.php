@@ -52,9 +52,8 @@
 				</div>
 				</br>
 			</div>
-			<footer>
 				<?php include 'controls/footer.php'; ?>
-			</footer>
+
 		</div>
 	</body>
 </html>

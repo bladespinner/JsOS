@@ -22,7 +22,7 @@
 			{
 				setLoggedIn($_POST["username"]);
 
-				header( 'Location: http://localhost:8088/JsOS/JsOS.html' ) ;
+				header( 'Location: http://'.$_SERVER['HTTP_HOST']._APPROOT.'/JsOS.php') ;
 				exit();
 			}
 		}
@@ -132,9 +132,9 @@
 				</script>
 				</br>
 			</div>
-			<footer>
+			
 					<?php include 'controls/footer.php'; ?>
-		</footer>
+		
 		</div>
 	</body>
 </html>

@@ -40,9 +40,7 @@ exit();
 					</form>	
 			</div>
 			
-			<footer>
-				<a href="OS.html">JsOS</a> | <a href="login.html">Login</a> | <a href="register.html">Register</a> | <a href="about.html">About</a> | <a href="index.html">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
-			</footer>
+			<?php include '../controls/footer.php'; ?>
 		</div>
 	</body>
 </html>
