@@ -31,14 +31,8 @@
 				</br>
 				<div class="center">
 					<h1>Login</h1>
-					<?php
-						if($_SERVER['REQUEST_METHOD'] === 'GET' && isLoggedIn())
-						{
-							echo '<h3>You are already logged in :)</h3>';
-						}
-						else if($_SERVER['REQUEST_METHOD'] === 'GET' && !isLoggedIn())
-						{
-						echo'<form method="post">
+
+						<form method="post">
 						<input type="text" id="username" name="username" value="Insert username" data-defaultValue="Insert username"></input>
 						<label>Username</label>
 						</br>
@@ -47,19 +41,19 @@
 						<label>Password</label>
 						</br>
 						</br>
-						<input type="submit" value="Login"></input>';
+						<input type="submit" value="Login"></input>
+						<?php
 							if(!$succesfulLogin)
 							{
 								echo "<label></br>Wrong Username or Password.</label>";
 							}
-					echo '</form>';
-					}
-					?>
+							?>
+						</form>
 				</div>
 				</br>
 			</div>
 			<footer>
-				<a href="OS.html">JsOS</a> | <a href="login.html">Login</a> | <a href="register.html">Register</a> | <a href="about.html">About</a> | <a href="index.html">Home</a> | <a href="disclaimer.html">Disclaimer</a> <span> | JsOS © All Rights Reserved
+				<?php include 'controls/footer.php'; ?>
 			</footer>
 		</div>
 	</body>
